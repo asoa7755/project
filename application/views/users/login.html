@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Electronic Ticketing System</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://localhost/ticketsystem/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost/ticketsystem/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="http://localhost/ticketsystem/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      
+    <!-- Bootstrap core JavaScript -->
+    <script src="http://localhost/ticketsystem/vendor/jquery/jquery.min.js"></script>
+    <script src="http://localhost/ticketsystem/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="http://localhost/ticketsystem/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+      <!--  log in form Script -->
+<script>
+    function checklogin(){
+       var uname=window.document.getElementById("username").value;
+        var pass=window.document.getElementById("password").value;
+        if (uname==""){
+            alert("Please Enter user name:");
+            window.document.getElementById("username").focus();
+            return false;
+        }
+        else if(pass==""){
+            alert("Please Enter password name:");
+            window.document.getElementById("password").focus();
+            return false;
+        }
+    }
+</script>
+     <!--  end log in form Script --> 
+      
+  </head>
+
+  <body>
+      
+      <!-- Navigation -->
+       <div class="container">
+<nav class="navbar navbar-light">
+    <img src="http://localhost/ticketsystem/vendor/bootstrap/css/logo.png" width="80" height="80">
+           </nav></div>
+      
+      
+
+    <div class="container">
+      <div style="width: 400px; height: 430px;" class="card card-login mx-auto mt-5">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+          <form action="http://localhost/ticketsystem/users/login.php" 
+      method="post" onsubmit="return checklogin()">
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" id="username" name="username" class="form-control" placeholder="User name" required="required" autofocus="autofocus">
+                <label for="username">User Name</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="required">
+                <label for="password">Password</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="remember-me">
+                  Remember Password
+                </label>
+              </div>
+            </div>
+              <button name="submit" type="submit" class="btn btn-primary btn-block" value="login">Login</button>
+            
+          </form>
+          <div class="text-center">
+           <!-- <a class="d-block small mt-3" href="register.html">Register an Account</a>-->
+            <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+          </div>
+        </div>
+      </div>
+    
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+      
+      <!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+    <a href=""> Ahmed</a>
+  </div>
+    </footer>
+  <!-- Copyright -->
+<!-- Footer --> 
+
+        
+        </div>
+  </body>
+
+</html>

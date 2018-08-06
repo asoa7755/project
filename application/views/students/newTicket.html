@@ -1,0 +1,179 @@
+<?php
+    session_start();
+    if(isset($_SESSION['currentname'])){
+    
+    }
+    else{
+        header("location:http://localhost/ticketsystem/index.html");
+        
+    }
+    ?>
+
+
+
+<!DOCTYPE html>
+<html dir="rtl" lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Electronic Ticketing System</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+       <div class="container">
+<nav class="navbar navbar-light">
+    <img src="http://localhost/ticketsystem/vendor/bootstrap/css/logo.png" width="80" height="80">
+           </nav></div>
+
+    <!-- Page Content -->
+    <div class="container">
+       <div dir="rtl" class="topnav">
+  <a class="" href="mainStudent.html">Home<i style="font-size: 30px; padding-right: 15px;" class="fa fa-home"></i></a>
+  <a class="active" href="newTicket.html">New Ticket<i style="font-size: 30px; padding-right: 15px;" class="fa fa-edit"></i></a>
+  <a class="" href="#contact">User Guide <i style="font-size: 30px; padding-right: 15px;" class="fa fa-book"></i></a>
+  <a class="" href="http://localhost/ticketsystem/users/login.html">Log out <i style="font-size: 30px; padding-right: 15px;" class="fa fa-power-off"></i></a>
+        </div>
+ <!-- User name  -->    
+ <b dir="rtl" style="color:dimgrey" >Welcome !</b> User Name 
+                            
+                            <input type="hidden" name=" " id=" " value="S">           
+       <!-- User name  -->           
+        
+      
+        <h3 style="text-align: center;"> New Ticket </h3>
+        <p style="text-align: right;">Please fill the form</p>  
+  
+        
+        <!-- New ticket form  -->
+        
+<div class="card mb-3">
+            <div class="card-header">
+              <i style="float: right; padding-left: 15px; font-size: 20px;" class="fa fa-file"></i><h7 style="float: right;">New Ticket Form </h7>
+              </div>
+            <div dir="ltr" class="card-body">
+              <div dir="rtl" class="table-responsive-sm">        
+        
+        
+        
+        
+        
+      <form action="http://localhost/ticketsystem/students/createNewticket.php" method="post">
+  
+<!-- Select Department | Select Basic -->
+          
+<div style="text-align: right; padding-left: 120px;" class="form-group row">
+    <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="selectbasic">Select Department</label>
+    <div class="col-md-8">
+        <select style="width: 400px;" id="selectbasic" name="selectbasic" class="form-control" placeholder="Select Department" required="required" autofocus="autofocus">
+            <option value="1">Option one</option>
+            <option value="2">Option two</option>
+        </select>
+    </div>
+</div>
+
+<!-- Select Service  | Select Basic -->
+<div style="text-align: right; padding-left: 120px;" class="form-group row">
+    <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="selectbasic1">Select Service </label>
+    <div class="col-md-8">
+        <select style="width: 400px;" id="selectbasic1" name="selectbasic1" class="form-control" placeholder="Select Service" required="required" autofocus="autofocus">
+            <option value="1">Option one</option>
+            <option value="2">Option two</option>
+        </select>
+    </div>
+</div>
+
+<!-- Order Comment | Textarea -->
+<div style="text-align: right; padding-left: 120px;" class="form-group row">
+    <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="textarea">Order Comment</label>
+    <div class="col-md-8">
+        <textarea class="form-control" id="textarea" name="textarea">default text</textarea>
+    </div>
+</div>
+
+<!-- Upload File | File Button -->
+<div style="text-align: right; padding-left: 120px;" class="form-group row">
+    <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="filebutton">Upload File</label>
+    <div class="col-md-8">
+        <input id="filebutton" name="filebutton" class="input-file" type="file">
+    </div>
+</div>
+
+<!-- Upload File | File Button -->
+<div style="text-align: right; padding-left: 120px;" class="form-group row">
+    <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="filebutton1">Upload File</label>
+    <div class="col-md-8">
+        <input id="filebutton1" name="filebutton1" class="input-file" type="file">
+    </div>
+</div>
+
+<!-- Upload File | File Button -->
+<div style="text-align: right; padding-left: 120px;" class="form-group row">
+    <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="filebutton2">Upload File</label>
+    <div class="col-md-8">
+        <input id="filebutton2" name="filebutton2" class="input-file" type="file">
+    </div>
+</div>
+
+<!--  | Button (Double) -->
+<div style="direction: inherit;"class="form-group row">
+    <label class="col-md-4 col-form-label" for="button1id"></label>
+    <div class="col-md-8">
+        <button id="button1id" name="button1id" class="btn btn-success">Submit</button>
+        <button id="button2id" name="button2id" class="btn btn-danger">Cancel </button>
+    </div>
+</div>
+
+</form>
+
+                </div>  </div></div>   
+            
+
+         
+        
+    <!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2018 Copyright:
+    <a href=""> Ahmed</a>
+  </div>
+    </footer>
+  <!-- Copyright -->
+<!-- Footer -->    
+        
+        
+        
+        
+        
+        
+        
+         </div>
+
+    
+
+  </body>
+
+</html>
