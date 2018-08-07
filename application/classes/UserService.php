@@ -1,5 +1,4 @@
 <?php
-//include_once './interfaces/IUserService.php';
 include_once 'Repository.php';
 include_once 'interfaces/IUserService.php';
 
@@ -12,14 +11,14 @@ class UserService extends Repository implements IUserService
         parent::__construct();  
     }          
  
-    public function addUser($email, $password, $firstname,$lastname,$role)
+    public function addUser($username, $email, $password, $firstname,$lastname,$role)
     {
         $this->execute("INSERT INTO USERS (Email,Password,Firstname,Lastname,Role) VALUES ('$email','$password','$firstname','$lastname',$role)");  
     }
 
-    public function login($email,$password)
+    public function login($username,$password)
     {
-        $result = $this->getData("SELECT * FROM USERS WHERE Email='$email' AND Password='$password' ");
+        $result = $this->getData("SELECT * FROM USERS WHERE UserName='$username' AND Password='$password' ");
         
         if ($result==false )
         {
@@ -28,6 +27,13 @@ class UserService extends Repository implements IUserService
         else{
             return true;
         }       
+    }
+
+    public function loginByRole($username,$password)
+    {
+        $result = $this->getData("SELECT * FROM USERS WHERE UserName='$username' AND Password='$password' ");
+       
+        return result;
     }
 }
 

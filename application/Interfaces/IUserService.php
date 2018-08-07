@@ -1,9 +1,10 @@
 <?php
 interface IUserService { 
 
-    public function addUser($email, $password, $firstname,$lastname,$role);
+    public function addUser($username, $email, $password, $firstname,$lastname,$role);
     
-    public function login($email,$password);
+    public function login($username,$password);
 
-}
+    public function loginByRole($username,$password);
+
 ?>

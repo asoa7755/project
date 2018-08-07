@@ -10,7 +10,7 @@ if (isset($webdata['user']))
 }
 else
 {   
-    header("Location: views/loginview.php");
+   // header("Location: views/loginview.php");
     die();
 }
 

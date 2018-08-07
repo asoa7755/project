@@ -38,7 +38,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                <ul class="nav navbar-nav">
-                  <li class="active"><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Home</a></li>
+                  <li class="active"><a href="../application/index.php"><span class="fa fa-home" aria-hidden="true"></span>Home</a></li>
                   <li >  <a href="#"><span class="fa fa-ticket" aria-hidden="true"></span>Show Tickets</a></li>
                   <li> <a href="#"><span class="fa fa-bar-chart" aria-hidden="true"></span>Ticket Reports</a></li>
                   <li class="dropdown">
@@ -65,7 +65,7 @@
         </form>
     </div>
     <ul class="nav navbar-nav navbar-right">      
-      <li><a href="#">Log in</a></li>
+      <li><a href="../application/views/users/login.php">Log in</a></li>
     </ul>
 
             </div>
