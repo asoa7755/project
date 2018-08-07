@@ -1,13 +1,3 @@
-<?php
-    session_start();
-    if(isset($_SESSION['currentname'])){
-    
-    }
-    else{
-        header("location:http://localhost/ticketsystem/index.html");
-        
-    }
-    ?>
 
 
 
