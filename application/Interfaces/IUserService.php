@@ -6,5 +6,5 @@ interface IUserService {
     public function login($username,$password);
 
     public function loginByRole($username,$password);
-
+}
 ?>

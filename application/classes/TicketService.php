@@ -53,3 +53,4 @@ class TicketService extends Repository implements ITicketService
 
     private sendEmail();
 }
+?>

@@ -1,6 +1,6 @@
 <?php
-include_once 'Repository.php';
-include_once 'interfaces/IUserService.php';
+include_once('Repository.php');
+include_once('../../interfaces/IUserService.php');
 
 class UserService extends Repository implements IUserService
 {
@@ -31,9 +31,10 @@ class UserService extends Repository implements IUserService
 
     public function loginByRole($username,$password)
     {
-        $result = $this->getData("SELECT * FROM USERS WHERE UserName='$username' AND Password='$password' ");
+        $result = $this->getData("SELECT * FROM USERS WHERE UserName='$username' AND Password='$password'");
        
-        return result;
+        return $result;
     }
 }
 
+?>

@@ -4,7 +4,7 @@ class ITicketService{
     public add($userid,$departmentid,$statusid, $ticketid,$comments,$uploadfiles);
 
     //reply ticket
-    public reply($ticketid,$statusid,$comments)
+    public reply($ticketid,$statusid,$comments);
     
     //It will get the ticket by user. It will apply y role.
     public getbyStaff($username);

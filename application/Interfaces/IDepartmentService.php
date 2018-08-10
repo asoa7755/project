@@ -1,5 +1,5 @@
 <?php
-class IServiceTicketService{
+class IDepartmentService{
     //get all departments
     public getAll();        
 }

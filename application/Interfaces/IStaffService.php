@@ -1,5 +1,5 @@
 <?php
-class ITicketService{
+class IStaffService{
     //add ticket
     public add($userid, $departments, $services);
         

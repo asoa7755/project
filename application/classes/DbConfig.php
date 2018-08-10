@@ -11,13 +11,12 @@ class DbConfig
     
     function __construct()
     {
-        if (!isset($this->connection)) {
-
-            $mysqli = new mysqli("localhost","root","ghDS67:45","ticketsystem");
-            //Verbindung überprüfen
+        if (!isset($this->connection)) {            
+            $mysqli = new mysqli("localhost","root","ghDS67:45","ticketsystemdb");
+            
             if ($mysqli -> connect_errno)
             {
-              printf("Verbindung fehlgeschlagen: %s\n", $mysqli->connect_error);
+              printf("Error connecting: %s\n", $mysqli->connect_error);
               exit();
             }
 

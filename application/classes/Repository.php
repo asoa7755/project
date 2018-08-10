@@ -1,5 +1,5 @@
 <?php
-include_once 'DbConfig.php';
+include_once('DbConfig.php');
 
 class Repository extends DbConfig
 {
@@ -8,19 +8,19 @@ class Repository extends DbConfig
         parent::__construct();
     }        
 
-
     public function getData($query)
     {
         $result = mysqli_query($this->connection,$query);
 
         if ($result == false) {
-            echo $query;
+            //echo $query;
             return false;
         } 
+      
         
         $rows = array();
 
-        while ( $row = mysqli_fetch_array( $result ) ) {
+        while ( $row = mysqli_fetch_array( $result ) ) {        
             $rows[] = $row;
         }
 
