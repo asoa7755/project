@@ -4,11 +4,14 @@
 
 
 <?php
+
+
         $user="";
         $pwd="";
 
     if (!empty($_POST['username']) && !empty($_POST['password']))
     {
+        echo "<h2> in post username  or password</h2> ";
         $user=$_POST['username'];
         $pwd=$_POST['password'];
     
@@ -27,10 +30,20 @@
             foreach ($records as $row)
             {
                 $_SESSION['Role'] = $row['Role'];        
-                $_SESSION['UserId'] = $row['Id'];
+                $_SESSION['UserName'] = $row['UserName'];
+                $_SESSION['Id'] = $row['Id'];
+                
             }
 
-            header('Location: ../students/mainstudent.php');
+            if ($_SESSION['Role']==1)
+            {                
+                header('Location: ../students/mainstudent.php');
+            }
+            else if ($_SESSION['Role']==2)
+            {
+                header('Location: ../staff/mainstaff.php');
+            }
+            
             die();
         }
     }
@@ -39,7 +52,7 @@
 <div class="wrapper">
     <form class="form-signin" action="login.php" method="post">       
       <h2 class="form-signin-heading">Please login</h2>
-      <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
+      <input type="text" class="form-control" name="username" placeholder="User Name" required="" autofocus="" />
       <input type="password" class="form-control" name="password" placeholder="Password" required=""/>      
       <label class="checkbox">
         <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me

@@ -1,6 +1,7 @@
 <?php
-include_once 'Repository.php';
-include_once 'interfaces/ITicketService.php';
+include_once('Repository.php');
+include_once('../../interfaces/ITicketService.php');
+
 
 class TicketService extends Repository implements ITicketService
 {
@@ -11,46 +12,53 @@ class TicketService extends Repository implements ITicketService
         parent::__construct();  
     }          
  
-    //add ticket
-    public add($userid,$departmentid,$statusid, $ticketid,$comments,$uploadfiles)
+    public function add($userid,$serviceid,$statusid,$comments)
     {
-        $this->execute("INSERT INTO TICKETS (UserId,DepartmentId,Status,Description,CreationDate) VALUES ($userid,$departmentid,$statusid,$comments, (SELECT NOW()))");  
+        $this->execute('INSERT INTO TICKETS (UserId,ServiceId,Status, Description,CreationDate) VALUES (1,'.$serviceid.','.$statusid.',"'.$comments.'",NOW() )') ; 
+    
     }
 
     //reply ticket
-    public reply($ticketid,$statusid,$comments)
+    public function reply($ticketid,$statusid,$comments)
     {
 
 
     }
     
-    //It will get the ticket by user. It will apply y role.
-    public getbyStaff($username)
-    {
+    //It will get the ticket by staff. It will apply y role.
+    public function getbyStaff($username)
+    {           
+        $result = $this->getData("SELECT * FROM TICKETS, USERS WHERE TICKETS.UserId= USERS.Id");
 
+        return $result;
     }
 
     //It will get teh student appying the role
-    public getbyStudent($username)
+    public function getbyStudent($username)
     {
+        $result = $this->getData("SELECT * FROM TICKETS, USERS WHERE TICKETS.UserId= USERS.Id AND USERS.UserName='$username' AND USERS.Role=1");
 
+         return $result;
     }
 
     //It will get teh student appying the role
-    public getbyAdmin($username)
+    public function getbyAdmin($username)
     {
 
     }
 
     //get all users includig admins
-    public getAll()
+    public function getAll()
     {
 
     }
 
     //update ticket by passing id
-    public update($ticketid, $status,$comment);
+    public function update($ticketid,$status,$comments,$staffid)
+    {
+        $this->execute('UPDATE TICKETS SET Status='.$status.',Description="'.$comments.'",SourceTicketId='.$staffid.')  WHERE ID='.$ticketid) ; 
+    }
 
-    private sendEmail();
+    public function sendEmail(){}
 }
 ?>

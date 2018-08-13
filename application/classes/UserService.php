@@ -16,6 +16,11 @@ class UserService extends Repository implements IUserService
         $this->execute("INSERT INTO USERS (Email,Password,Firstname,Lastname,Role) VALUES ('$email','$password','$firstname','$lastname',$role)");  
     }
 
+    public function addUserwithServiceId($username, $email, $password, $firstname,$lastname,$role, $serviceid)
+    {
+        $this->execute("INSERT INTO USERS (Email,Password,Firstname,Lastname,Role, ServiceId) VALUES ('$email','$password','$firstname','$lastname',$role,$serviceid)");  
+    }
+
     public function login($username,$password)
     {
         $result = $this->getData("SELECT * FROM USERS WHERE UserName='$username' AND Password='$password' ");

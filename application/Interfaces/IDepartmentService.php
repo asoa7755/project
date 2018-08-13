@@ -1,6 +1,13 @@
 <?php
-class IDepartmentService{
+interface IDepartmentService{
     //get all departments
-    public getAll();        
+    public function getAll();   
+    
+    //get all departments and services
+    function getDepartmentsAndService();
+
+    function getServices();
+
+    function getServicesByDepartment($departmentid);
 }
 ?>

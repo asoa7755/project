@@ -1,7 +1,7 @@
 <?php
-class IDepartmentService{
+interface IDepartmentService{
     //get all departments
-    public getAll();        
+    public function getAll();        
 }
 
 ?>

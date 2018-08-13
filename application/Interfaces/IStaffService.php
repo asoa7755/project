@@ -1,7 +1,7 @@
 <?php
-class IStaffService{
+interface IStaffService{
     //add ticket
-    public add($userid, $departments, $services);
+    public function add($userid, $departments, $services);
         
 }
 

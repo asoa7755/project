@@ -1,27 +1,30 @@
 <?php
-class ITicketService{
+interface ITicketService{
     //add ticket
-    public add($userid,$departmentid,$statusid, $ticketid,$comments,$uploadfiles);
+    //public add($userid,$departmentid,$statusid, $ticketid,$comments,$uploadfiles);
+   // public function add($userid,$departmentid,$statusid, $ticketid,$comments,$uploadfiles);
+
+    public function add($userid,$serviceid  ,$statusid,$comments);
 
     //reply ticket
-    public reply($ticketid,$statusid,$comments);
+    public function reply($ticketid,$statusid,$comments);
     
     //It will get the ticket by user. It will apply y role.
-    public getbyStaff($username);
+    public function getbyStaff($username);
 
     //It will get teh student appying the role
-    public getbyStudent($username);
+    public function getbyStudent($username);
 
     //It will get teh student appying the role
-    public getbyAdmin($username);
+    public function getbyAdmin($username);
 
     //get all users includig admins
-    public getAll();
+    public function getAll();
 
     //update ticket by passing id
-    public update($ticketid, $status,$comment);
+    public function update($ticketid,$status,$comments,$staffid);
 
-    private sendEmail();
+    public function sendEmail();
 }
 
 ?>
