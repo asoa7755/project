@@ -32,16 +32,16 @@
                 $_SESSION['Role'] = $row['Role'];        
                 $_SESSION['UserName'] = $row['UserName'];
                 $_SESSION['Id'] = $row['Id'];
-                
+                echo  $_SESSION['Id'];
             }
 
             if ($_SESSION['Role']==1)
             {                
-                header('Location: ../students/mainstudent.php');
+               // header('Location: ../students/mainstudent.php');
             }
             else if ($_SESSION['Role']==2)
             {
-                header('Location: ../staff/mainstaff.php');
+                //header('Location: ../staff/mainstaff.php');
             }
             
             die();

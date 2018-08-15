@@ -1,4 +1,4 @@
-<?php
+    <?php
 include_once('Repository.php');
 include_once('../../interfaces/ITicketService.php');
 
@@ -14,10 +14,41 @@ class TicketService extends Repository implements ITicketService
  
     public function add($userid,$serviceid,$statusid,$comments)
     {
-        $this->execute('INSERT INTO TICKETS (UserId,ServiceId,Status, Description,CreationDate) VALUES (1,'.$serviceid.','.$statusid.',"'.$comments.'",NOW() )') ; 
-    
+        $this->execute('INSERT INTO TICKETS (UserId,ServiceId,Status, Description,CreationDate) VALUES ('.$userid.','.$serviceid.','.$statusid.',"'.$comments.'",NOW() )') ; 
     }
 
+    public function addandGetId($userid,$serviceid,$statusid,$comments)
+    {
+        $this->execute('INSERT INTO TICKETS (UserId,ServiceId,Status, Description,CreationDate) VALUES ('.$userid.','.$serviceid.','.$statusid.',"'.$comments.'",NOW() )') ; 
+        $tiketid = 0;
+
+        $result = $this->getData("SELECT * FROM TICKETS ORDER BY ID DESC LIMIT 1" );
+
+        foreach ($result as $row )
+        {
+            $tiketid = $row[0];
+        }
+
+        return $tiketid;
+    }
+
+    public function addWithimage($userid, $serviceid,$statusid,$comments,$file)
+    {
+        $this->execute('INSERT INTO TICKETS (UserId,ServiceId,Status, Description,CreationDate) VALUES ('.$userid.','.$serviceid.','.$statusid.',"'.$comments.'",NOW() )') ; 
+    
+        $result = $this->getData("SELECT * FROM TICKETS ORDER BY ID DESC LIMIT 1" );
+
+        foreach ($result as $row )
+        {
+            $this->execute("INSERT INTO FILES (TicketId,File,Name, Extension,CreationDate) VALUES (".$row[0].",'".$file."','big file','jpg',NOW() )") ; 
+        }
+
+    }
+
+    public function addImage($ticketid, $userid, $filename,$extension,$file)
+    {
+       $this->execute("INSERT INTO FILES (TicketId,File,Name, Extension,CreationDate) VALUES (".$ticketid.",'".$file."','".$filename."','".$extension."',NOW() )") ; 
+    }
     //reply ticket
     public function reply($ticketid,$statusid,$comments)
     {
@@ -41,6 +72,7 @@ class TicketService extends Repository implements ITicketService
          return $result;
     }
 
+  
     //It will get teh student appying the role
     public function getbyAdmin($username)
     {
@@ -55,10 +87,17 @@ class TicketService extends Repository implements ITicketService
 
     //update ticket by passing id
     public function update($ticketid,$status,$comments,$staffid)
-    {
-        $this->execute('UPDATE TICKETS SET Status='.$status.',Description="'.$comments.'",SourceTicketId='.$staffid.')  WHERE ID='.$ticketid) ; 
+    {        
+        $this->execute('UPDATE TICKETS SET Status='.$status.',Description="'.$comments.'",SourceTicketId='.$staffid.' WHERE ID='.$ticketid) ; 
     }
 
     public function sendEmail(){}
+
+    public function search($term,$username, $role)
+    {                
+        $result = $this->getData("SELECT * FROM TICKETS, USERS WHERE (USERS.Role=$role AND TICKETS.UserId= USERS.Id AND USERS.UserName='".$username."')  AND TICKETS.Description LIKE '%$term%'");
+
+        return $result;
+    }
 }
 ?>

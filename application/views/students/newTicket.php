@@ -1,31 +1,46 @@
 
 <?php include_once('../../../application/classes/DepartmentService.php') ;?>
 <?php include_once('../../../application/classes/TicketService.php') ;?>
-        
-<div class="card mb-3">
-            <div class="card-header">
-              <i style=" padding-right: 15px; font-size: 20px;" class="fa fa-file"></i><h7>New Ticket Form </h7>
-              </div>
-            <div dir="ltr" class="card-body">
-              <div dir="rtl" class="table-responsive-sm">        
+
 <?php
     $departmentservice = new DepartmentService();
-    $ticketservice = new TicketService();
-
+    $ticketservice = new TicketService();    
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
     if(!empty($_POST['department']) && !empty($_POST['service']) && !empty($_POST['comments']))
-    {
-
+    {       
+       
         $serviceid =$_POST['service'];
         $comments = $_POST['comments'];
-        
+        $userid = $_SESSION['Id'];       
 
-        $ticketservice->Add($_SESSION['Id'], $serviceid,1,$comments);
+        $newticketid= $ticketservice->addandGetId($userid, $serviceid,1,$comments);
+
+        if (!empty($_FILES['filebutton']["tmp_name"]))
+        {
+            $image=base64_encode(file_get_contents($_FILES['filebutton']["tmp_name"]));
+            $ticketservice->addImage($newticketid, $userid,  $_FILES ["filebutton"]["name"],pathinfo($_FILES ["filebutton"]["name"], PATHINFO_EXTENSION),$image);           
+        }
+        if (!empty($_FILES['filebutton1']["tmp_name"]))
+        {
+            $image=base64_encode(file_get_contents($_FILES['filebutton1']["tmp_name"]));
+            $ticketservice->addImage($newticketid, $userid,  $_FILES ["filebutton1"]["name"],pathinfo($_FILES ["filebutton1"]["name"], PATHINFO_EXTENSION),$image);           
+        }
+        if (!empty($_FILES['filebutton2']["tmp_name"]))
+        {
+            echo "in two" . $_FILES['filebutton2']["tmp_name"];
+            $image=base64_encode(file_get_contents($_FILES['filebutton2']["tmp_name"]));
+            $ticketservice->addImage($newticketid, $userid,  $_FILES ["filebutton2"]["name"],pathinfo($_FILES ["filebutton2"]["name"], PATHINFO_EXTENSION),$image);           
+        }
 
         header('Location: mainStudent.php');
         die();
 
     }
-    
+     
+
     
     // Get Services
     $services = $departmentservice->getServices();
@@ -39,8 +54,8 @@
     // Upload 4 files
 
 ?>
-<?php include_once('../shared/_headerview.php') ?>    
-      <form action="newTicket.php" method="post">
+ <?php include_once('../shared/_headerview.php');  ?>
+      <form action="newTicket.php" method="post" enctype="multipart/form-data">
 
         <!-- Select Department | Select Basic -->
             <div style="text-align: right; padding-left: 120px;" class="form-group row">

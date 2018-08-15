@@ -1,4 +1,10 @@
-<?php include_once('../application/views/shared/_headerview.php') ?>
+<?php 
+    include_once('../application/views/shared/_headerview.php');
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
+?>
 
 <div class="jumbotron">
     <h1> Ticketing System </h1>

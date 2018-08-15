@@ -1,5 +1,4 @@
 
-<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -40,8 +39,22 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                <ul class="nav navbar-nav">
-                  <li class="active"><a href="../application/index.php"><span class="fa fa-home" aria-hidden="true"></span>Home</a></li>
-                  <li >  <a href="#"><span class="fa fa-ticket" aria-hidden="true"></span>Show Tickets</a></li>
+                  <li class="active"><a href="/ticketsystem/application/index.php"><span class="fa fa-home" aria-hidden="true"></span>Home</a></li>
+                  <li >  
+                      <?php
+                      if (isset($_SESSION["Role"]))
+                      {
+                        if ($_SESSION["Role"]==2)
+                        {
+                                echo '<a href="/ticketsystem/application/views/staff/mainStaff.php"><span class="fa fa-ticket" aria-hidden="true"></span>All Tickets</a>';
+                        }
+                        else
+                        {
+                            echo '<a href="/ticketsystem/application/views/students/mainStudent.php"><span class="fa fa-ticket" aria-hidden="true"></span>Display Tickets</a>';
+                        }
+                      }
+                      ?>
+                    </li>
                   <li> <a href="#"><span class="fa fa-bar-chart" aria-hidden="true"></span>Ticket Reports</a></li>
                   <li class="dropdown">
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
@@ -66,8 +79,17 @@
         </div>
         </form>
     </div>
-    <ul class="nav navbar-nav navbar-right">      
-      <li><a href="../application/views/users/login.php">Log in</a></li>
+    <ul class="nav navbar-nav navbar-right">              
+    <?php
+     if (empty($_SESSION['Id']))
+     {
+        echo '<li><a href="/ticketsystem/application/views/users/login.php">Log in</a></li>';
+     }
+     else
+     {
+        echo '<li><a href="/ticketsystem/application/views/users/logout.php">Log out</a></li>';
+     }
+      ?>
     </ul>
 
             </div>

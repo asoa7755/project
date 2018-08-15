@@ -15,7 +15,7 @@
     //if (!empty($_POST['user_name']) && !empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['department'])&& !empty($_POST['service'])&& !empty($_POST['password'])&& !empty($_POST['email']))
     if (!empty($_POST['user_name']))
     {
-        echo 'inside';
+       
         $username= $_POST['user_name'];
         $email = $_POST['email'];
         $password = $_POST['user_password'];
@@ -23,7 +23,9 @@
         $lastname = $_POST['last_name'];
         $service = new UserService();
         $service->addUser($username, $email,$password,$firstname,$lastname ,1);
-
+        
+        header('Location: ../../index.php');
+        die();
     }
 ?>
 

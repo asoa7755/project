@@ -3,7 +3,10 @@
 <!-- Page Content -->
 <h3> Tickets </h3>
 <p>Search for your order / Ticket</p>
-<input style="width: 250px;"class="form-control" id="myInput" type="text" placeholder="Search..">
+<form action="mainstaff.php" method="post">
+  <input style="width: 250px;"class="form-control" id="search" type="text" name="search" placeholder="Search..">
+
+</form>
 <br>
 <div class="card mb-3">
    <div class="card-header">
@@ -13,11 +16,10 @@
           <h7>My Tickets </h7>
 </BR>
 <i style=" padding-right: 15px; font-size: 20px;" class="fa fa-plus"></i>
-          <h7><a href="newticket.php">Add New Ticket<a> </h7>
+          <h7><a href="../students/newticket.php">Add New Ticket<a> </h7>
           </div>
           <div class="col-md-4"> </div>
-          <div class="col-md-4"> 
-          
+          <div class="col-md-4">           
           </div>
       </div>
       
@@ -28,22 +30,50 @@
         
       <?php
  
-
+    
     if (!empty($_SESSION['UserName']))
     {      
         $ticketservice= new TicketService();    
-
-        if (!empty($_POST['status'])
-        {
-            $ticketservice ->update($ticketid,$status,$comments,$staffid);
-            header('Location: ../staff/mainstaff.php');
-            die();
-        }
+        $records ="";
     
-        $records = $ticketservice->getbyStaff($_SESSION['UserName']);
+        if (!empty($_POST['search']))
+        {          
+            $records = $ticketservice->search($_POST['search'], $_SESSION['UserName'], $_SESSION['Role']);
+        }
+        elseif (!empty($_POST['status']))
+        {
+            $ticketid = $_POST['ticketnumber'];
+            $status = $_POST['status'];            
+            $comments = $_POST['comments']; 
+            $staffid= $_SESSION['Id'];       
+
+            $ticketservice ->update($ticketid,$status,$comments,$staffid);           
+            echo '<label class="label label-success"> Updated</label>';
+
+            if (($_SESSION['Role'])==2)
+            {
+              $records = $ticketservice->getbyStaff($_SESSION['UserName']);
+            }
+            elseif (($_SESSION['Role'])==1)
+            {
+              $records = $ticketservice->getbyStudent($_SESSION['UserName']);
+            }
+        }
+        elseif (($_SESSION['Role'])==2)
+        {
+            $records = $ticketservice->getbyStaff($_SESSION['UserName']);
+        }
+        elseif (($_SESSION['Role'])==1)
+        {
+          $records = $ticketservice->getbyStudent($_SESSION['UserName']);
+        }
+        else{
+          $records = $ticketservice->getbyStudent($_SESSION['UserName']);
+        }
 
         if (!empty($records))
         {
+          
           echo '<table style="border-color: darkcyan;" dir="rtl" class="table table-bordered">';
           echo '<thead>';
           echo '<tr>';
@@ -85,9 +115,9 @@
                 }
 
                 echo '<tr><form action="mainstaff.php" method="post">';
-                echo '<td scope="row"><input type="button" class="btn btn-success" value="Save"/> </td>';
-                echo '<th scope="row">'.$ticketnumber.'</th>';
-                echo '<td ><div contenteditable="true">'.$comments.'</div></td>';
+                echo '<td scope="row"><input type="submit" class="btn btn-success" value="Save"/> </td>';
+                echo '<th scope="row"><input  name="ticketnumber" id="ticketnumber" type="text" value="'.$ticketnumber.'" > </th>';
+                echo '<td ><textarea contenteditable="true" id="comments" name="comments">'.$comments.'</textarea></td>';
                 
                 echo '<td>';
                 echo '<select style="width: 400px;" id="status" name="status" class="form-control" placeholder="Select Department" required="required" autofocus="autofocus">';               
@@ -120,8 +150,11 @@
 
 
     
-      <!-- for search table -->
-      <script>
+    
+   </div>
+</div>
+  <!-- for search table -->
+  <script>
          $(document).ready(function(){
            $("#myInput").on("keyup", function() {
              var value = $(this).val().toLowerCase();
@@ -131,7 +164,5 @@
            });
          });
       </script>
-   </div>
-</div>
 <!-- Footer -->
 <?php include_once('../shared/_footerview.php') ?>
