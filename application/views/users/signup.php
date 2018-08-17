@@ -4,13 +4,13 @@
 <?php include_once('../../../application/classes/TicketService.php') ;?>
 
 <?php
-    $departmentservice = new DepartmentService();
-    $ticketservice = new TicketService();
+    //$departmentservice = new DepartmentService();
+    //$ticketservice = new TicketService();
    // Get Services
-   $services = $departmentservice->getServices();
+   //$services = $departmentservice->getServices();
 
    // Get All Departments
-   $departmentservices = $departmentservice->getAll();
+   //$departmentservices = $departmentservice->getAll();
 
     //if (!empty($_POST['user_name']) && !empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['department'])&& !empty($_POST['service'])&& !empty($_POST['password'])&& !empty($_POST['email']))
     if (!empty($_POST['user_name']))
@@ -23,10 +23,19 @@
         $lastname = $_POST['last_name'];
         $service = new UserService();
         $service->addUser($username, $email,$password,$firstname,$lastname ,1);
+
+          //Success message 
+          
+         echo '<div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>';
         
-        header('Location: ../../index.php');
-        die();
+      
     }
+        
+                
+        
+        //header('Location: AddUsersView.php');
+        //die();
+    
 ?>
 
 <div class="container">
@@ -102,19 +111,17 @@
          </div>
     
         
-         <!-- Select Basic -->
-         <!-- Success message -->
-         <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>
          <!-- Button -->
          <div class="form-group">
             <label class="col-md-4 control-label"></label>
             <div class="col-md-4"><br>
-               &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-warning" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSUBMIT <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+            <button type="submit" class="btn btn-warning">Create<span class="glyphicon glyphicon-send"></span></button>
+            <a class="btn btn-primary" href="addusersview.php" role="button">Back</a>
             </div>
          </div>
+        
       </fieldset>
    </form>
-</div>
 
 
 

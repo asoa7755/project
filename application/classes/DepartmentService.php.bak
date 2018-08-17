@@ -11,20 +11,6 @@ class DepartmentService extends Repository implements IDepartmentService
     {
         parent::__construct();  
     }
-    // add Department 
-    public function adddepartment($department_name,$department_description)
-    {
-        
-        $this->execute("INSERT INTO departments (Name,Description) VALUES('$department_name','$department_description')");
-        
-    }
-    // add service 
-    public function addservice($department_Id,$service_name,$service_description)
-    {
-        
-        $this->execute("INSERT INTO services (DepartmentId,Name,Description) VALUES('$department_Id','$service_name','$service_description')");
-        
-    }
     
      //get all departments
      public function getAll(){
@@ -33,7 +19,7 @@ class DepartmentService extends Repository implements IDepartmentService
 
      //get all departments
      public function getDepartmentsAndService(){
-        return $this->getData("SELECT DEPARTMENTS.Id,DEPARTMENTS.Name,SERVICES.NAME,SERVICES.Id FROM DEPARTMENTS, SERVICES WHERE DEPARTMENTS.Id = SERVICES.DepartmentId ORDER BY DEPARTMENTS.Id");
+        return $this->getData("SELECT Id,DEPARTMENTS.Name,SERVICES.NAME FROM DEPARTMENTS, SERVICES WHERE DEPARTMENTS.Id = SERVICES.DepartmentId");
      }
 
      public function getServices(){

@@ -17,7 +17,7 @@
         $userid = $_SESSION['Id'];       
 
         $newticketid= $ticketservice->addandGetId($userid, $serviceid,1,$comments);
-        
+
         if (!empty($_FILES['filebutton']["tmp_name"]))
         {
             $image=base64_encode(file_get_contents($_FILES['filebutton']["tmp_name"]));
@@ -34,7 +34,7 @@
             $image=base64_encode(file_get_contents($_FILES['filebutton2']["tmp_name"]));
             $ticketservice->addImage($newticketid, $userid,  $_FILES ["filebutton2"]["name"],pathinfo($_FILES ["filebutton2"]["name"], PATHINFO_EXTENSION),$image);           
         }
-        
+
         header('Location: mainStudent.php');
         die();
 
@@ -54,10 +54,7 @@
     // Upload 4 files
 
 ?>
- <?php include_once('../shared/_headerview.php');?>
- <!-- print User name and Id -->
-<p> Welcome!  <?php echo $_SESSION['UserName']; echo $_SESSION['Id']; ?></p>
-
+ <?php include_once('../shared/_headerview.php');  ?>
       <form action="newTicket.php" method="post" enctype="multipart/form-data">
 
         <!-- Select Department | Select Basic -->
@@ -96,7 +93,7 @@
             <div style="text-align: right; padding-left: 120px;" class="form-group row">
                 <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="textarea">Order Comment</label>
                 <div class="col-md-8">
-                    <textarea class="form-control" id="comments" name="comments"></textarea>
+                    <textarea class="form-control" id="comments" name="comments">default text</textarea>
                 </div>
             </div>
 

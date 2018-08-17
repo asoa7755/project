@@ -4,6 +4,7 @@
     { 
         session_start(); 
     } 
+     
 ?>
 
 <div class="jumbotron">

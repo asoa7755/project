@@ -1,8 +1,6 @@
 <?php include_once('../shared/_headerview.php') ?>
 <?php include_once('../../../application/classes/TicketService.php') ;?>
 <!-- Page Content -->
-<!-- print User name and Id -->
-<p> Welcome!  <?php echo $_SESSION['UserName']; echo $_SESSION['Id']; ?></p>
 <h3> Tickets </h3>
 <p>Search for your order / Ticket</p>
 <form action="mainstaff.php" method="post">
@@ -14,20 +12,22 @@
    <div class="card-header">
       <div class="row"> 
           <div class="col-md-4"> 
-          
+          <i style=" padding-right: 15px; font-size: 20px;" class="fa fa-table"></i>
+          <h7>My Tickets </h7>
 </BR>
-<!--<i style=" padding-right: 15px; font-size: 20px;" class="fa fa-plus"></i>
-          <h7><a href="../students/newticket.php">Add New Ticket<a> </h7>-->
+<i style=" padding-right: 15px; font-size: 20px;" class="fa fa-plus"></i>
+          <h7><a href="../students/newticket.php">Add New Ticket<a> </h7>
           </div>
-          
+          <div class="col-md-4"> </div>
+          <div class="col-md-4">           
+          </div>
       </div>
       
      
    </div>
    <div dir="ltr" class="card-body">
-      <div  class="well table-responsive-sm">
-        <i style=" padding-right: 15px; font-size: 20px;" class="fa fa-table"></i>
-          <h7>My Tickets </h7>
+      <div dir="rtl" class="table-responsive-sm">
+        
       <?php
  
     
@@ -49,7 +49,6 @@
 
             $ticketservice ->update($ticketid,$status,$comments,$staffid);           
             echo '<label class="label label-success"> Updated</label>';
-
 
             if (($_SESSION['Role'])==2)
             {
@@ -75,15 +74,15 @@
         if (!empty($records))
         {
           
-          echo '<table class="table table-bordered ">';
+          echo '<table style="border-color: darkcyan;" dir="rtl" class="table table-bordered">';
           echo '<thead>';
           echo '<tr>';
-          echo '<th style="width:10%;" scope="col">Save</th>';
-          echo '<th style="width:10%;" scope="col">Ticket No.</th>';
+          echo '<th style="width:15%;" scope="col">Save</th>';
+          echo '<th style="width:15%;" scope="col">Ticket No.</th>';
           echo '<th scope="col">comments</th>';
           echo '<th style="width:15%;" scope="col">status</th>';
-          echo '<th style="width:15%;" scope="col">Data / Time</th>';
-          echo '<th style="width:5%;" scope="col">View</th>';
+          echo '<th style="width:20%;" scope="col">Data / Time</th>';
+          echo '<th style="width:10%;" scope="col">View</th>';
           echo '</tr>';
           echo '</thead>';
           echo '<tbody id="myOrder">';
@@ -97,32 +96,31 @@
                 $statuscolour = "#000000";
                 $datetime = $row[5];
                 $statustext ="";
-                $rowcolor="";
 
                 if (!empty($status))
                 {
                     switch ($status){
                       // New
-                      case 1:  $statustext ="New";  $rowcolor="info"; break;
+                      case 1:  $statustext ="New"; break;
                       // Pending
-                      case 2: $statustext ="Pending"; $rowcolor="warning"; break;
+                      case 2: $statustext ="Pending"; break;
                       // Return To Student
-                      case 3:  $statustext ="Return to Student"; $rowcolor="warning"; break;
+                      case 3:  $statustext ="Return to Student"; break;
                       //Accepted:break;
-                      case 4:  $statustext ="Accepted"; $rowcolor="success"; break;
+                      case 4:  $statustext ="Accepted"; break;
                       //Rejected:break;
-                      case 5:$statustext ="Rejected"; $rowcolor="success"; break;
+                      case 5:$statustext ="Rejected";  break;
                     }
 
                 }
 
                 echo '<tr><form action="mainstaff.php" method="post">';
-                echo '<td scope="row"><input  type="submit" class="btn btn-success" value="Save"/> </td>';
-                echo '<th class="'.$rowcolor.'" scope="row"><input  name="ticketnumber" id="ticketnumber" type="text" value="'.$ticketnumber.'"readonly  > </th>';
-                echo '<td class="'.$rowcolor.'"><textarea contenteditable="true" id="comments" name="comments">'.$comments.'</textarea></td>';
+                echo '<td scope="row"><input type="submit" class="btn btn-success" value="Save"/> </td>';
+                echo '<th scope="row"><input  name="ticketnumber" id="ticketnumber" type="text" value="'.$ticketnumber.'" > </th>';
+                echo '<td ><textarea contenteditable="true" id="comments" name="comments">'.$comments.'</textarea></td>';
                 
-                echo '<td class="'.$rowcolor.'">';
-                echo '<select style="width: 150px;" id="status" name="status" class="form-control input-sm" placeholder="Select Department" required="required" autofocus="autofocus">';               
+                echo '<td>';
+                echo '<select style="width: 400px;" id="status" name="status" class="form-control" placeholder="Select Department" required="required" autofocus="autofocus">';               
                 echo '<option value="'.$status.'">'.$statustext.'</option>';
                 echo '<option value="1">New</option>';
                 echo '<option value="2">Pending</option>';
@@ -131,8 +129,8 @@
                 echo '<option value="5">Rejected</option>';
                 echo '</select>';
                 echo '</td>';
-                echo '<td class="'.$rowcolor.'">'.$datetime.'</td>';
-                echo '<td class="'.$rowcolor.'"><a id="ContentPlaceHolder1_gvRequests_hlView_0" title="View" href="" target="_self">';
+                echo '<td>'.$datetime.'</td>';
+                echo '<td><a id="ContentPlaceHolder1_gvRequests_hlView_0" title="View" href="" target="_self">';
                 echo '<i class="fa fa-search" style="color: #7cc576;margin: 2px; font-size: 20px;"></i></a>';
                 echo '</td>';
                 echo '</form></tr>';            
