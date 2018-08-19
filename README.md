@@ -1,3 +1,10 @@
+User
+- Department name (drop list from the database includes all department)
+- The service name (drop list based on department name, each department has own service)
+- Upload files (multiple files)
+Staff
+- See files
+
 # System services
 
 System services are divided into the following:
