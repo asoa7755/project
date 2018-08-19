@@ -8,6 +8,9 @@ interface ITicketService{
 
     public function addandGetId($userid,$serviceid,$statusid,$comments);
 
+    public function addWithimage($userid, $serviceid,$statusid,$comments,$file);
+
+    public function addImage($ticketid, $userid, $filename,$extension,$file);
     //reply ticket
     public function reply($ticketid,$statusid,$comments);
     
@@ -26,11 +29,13 @@ interface ITicketService{
     //update ticket by passing id
     public function update($ticketid,$status,$comments,$staffid);
 
+    public function updateandEmail($ticketid,$status,$comments,$staffid,$username);
+
     public function sendEmail();
 
     public function search($term,$username, $role);
 
-    public function addImage($ticketid, $userid, $filename,$extension,$file);
+    
 }
 
 ?>

@@ -1,15 +1,21 @@
     <?php
 include_once('Repository.php');
 include_once('../../interfaces/ITicketService.php');
+include_once('../../interfaces/IEmailService.php');
+include_once('../../classes/EmailService.php');
+
 
 
 class TicketService extends Repository implements ITicketService
 {
     protected $_repository;
+    protected $_emailservice;
 
     public function __construct()
     {
         parent::__construct();  
+        
+        $_emailservice= new EmailService();
     }          
  
     public function add($userid,$serviceid,$statusid,$comments)
@@ -90,6 +96,22 @@ class TicketService extends Repository implements ITicketService
     {        
         $this->execute('UPDATE TICKETS SET Status='.$status.',Description="'.$comments.'",SourceTicketId='.$staffid.' WHERE ID='.$ticketid) ; 
     }
+
+    public function updateandEmail($ticketid,$status,$comments,$staffid,$username)
+    {        
+        $this->execute('UPDATE TICKETS SET Status='.$status.',Description="'.$comments.'",SourceTicketId='.$staffid.' WHERE ID='.$ticketid) ; 
+        $result = $this->getData("SELECT * FROM USERS WHERE USERS.UserName='$username' AND USERS.Role=1");
+
+        foreach ($result as $row)
+        {
+            $_emailservice->sendEmail($username,"service.desk@gmail.com",$row[2],'SUPORT TN:'.$ticketid,'IT Support is dealing with your request.');
+        }
+
+         return $result;
+
+       
+    }
+
 
     public function sendEmail(){}
 
