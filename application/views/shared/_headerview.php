@@ -84,7 +84,7 @@
      else
      {
          
-        echo '<li><a >Welcome !'.$_SESSION['UserName'].' </a></li>';
+        echo '<li><a >Welcome '.$_SESSION['UserName'].' ! </a></li>';
         echo '<li><a href="/ticketsystem/application/views/users/logout.php">Log out</a></li>';
      }
       ?>

@@ -35,7 +35,9 @@ interface ITicketService{
 
     public function search($term,$username, $role);
 
-    
+    public function getTotalHotTickets();
+
+    public function getAvgTicketsDuration();
 }
 
 ?>

@@ -88,7 +88,9 @@ class TicketService extends Repository implements ITicketService
     //get all users includig admins
     public function getAll()
     {
+        $result = $this->getData("SELECT Status FROM TICKETS ");
 
+        return $result;
     }
 
     //update ticket by passing id
@@ -112,6 +114,15 @@ class TicketService extends Repository implements ITicketService
        
     }
 
+    public function getTotalHotTickets()
+    {
+        $result = $this->getData("SELECT Count(*) FROM TICKETS WHERE Status=2");
+
+        foreach ($result as $row)
+        {
+            return $row[0];
+        }
+    }
 
     public function sendEmail(){}
 
@@ -121,5 +132,13 @@ class TicketService extends Repository implements ITicketService
 
         return $result;
     }
+
+    public function getAvgTicketsDuration()
+    {
+        $result = $this->getData("SELECT  avg(NOW() - CreationDate), USERNAME FROM TICKETS, USERS WHERE TICKETS.USERID = USERS.Id AND Role=2 GROUP BY (status)");
+        
+        return $result;
+    }
+
 }
 ?>

@@ -47,7 +47,7 @@
             $comments = $_POST['comments']; 
             $staffid= $_SESSION['Id'];       
 
-            $ticketservice ->update($ticketid,$status,$comments,$staffid);           
+            $ticketservice ->update($ticketid,$status,$comments,$staffid,$_SESSION['UserName']);           
             echo '<label class="label label-success"> Updated</label>';
 
 

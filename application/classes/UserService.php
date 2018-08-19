@@ -47,6 +47,32 @@ class UserService extends Repository implements IUserService
 
         return $result;
     }
+
+    
+
+    public function getTotalStaff()
+    {
+        $result = $this->getData("SELECT Count(*) FROM USERS WHERE Role=2");
+
+        foreach ($result as $row)
+        {
+            return $row[0];
+        }
+    }
+
+
+    public function getTotalStudents()
+    {
+        $result = $this->getData("SELECT Count(*) FROM USERS WHERE Role=1");
+
+        foreach ($result as $row)
+        {
+            return $row[0];
+        }
+    
+    
+    }
+  
 }
 
 ?>

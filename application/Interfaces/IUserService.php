@@ -8,5 +8,9 @@ interface IUserService {
     public function login($username,$password);
 
     public function loginByRole($username,$password);
+
+    public function getTotalStudents();
+
+    public function getTotalStaff();
 }
 ?>
