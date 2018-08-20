@@ -11,7 +11,8 @@ $totalstaff = $userservice->getTotalStaff();
 $hottickets= $ticketservice->getTotalHotTickets();
 $alltickets= $ticketservice->getAll();
 $staffproductivity= $ticketservice->getAvgTicketsDuration();
-
+$ticketsandservices = $ticketservice->getTicketswithdepartmentservice();
+$hotusers = $ticketservice->getTotalHotTicketUsers();
 ?>
 
     <!-- Page Content -->   
@@ -149,10 +150,18 @@ $staffproductivity= $ticketservice->getAvgTicketsDuration();
             <div class="col-md-4"> 
             <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Panel title</h3>
+                        <h3 class="panel-title">Tickets Per Area</h3>
                     </div>
                     <div class="panel-body">
-                        Panel content
+                    <?php
+                      echo '<table>';
+                      echo '<tr class="warning"> <td class="column-spacing"> Service </td> <td class="column-spacing"> Department </td><td class="column-spacing"> Tickets </td></tr>';                     
+                      foreach($ticketsandservices as $ticket)
+                      {
+                            echo '<tr> <td class="column-spacing">'. $ticket[1] .'</td> <td class="column-spacing">'.$ticket[2].'</td><td class="column-spacing"> '. $ticket[0]. '</td></tr>';
+                      }
+                      echo '</table>'
+                    ?>
                     </div>
                 </div>
             </div>
@@ -161,32 +170,33 @@ $staffproductivity= $ticketservice->getAvgTicketsDuration();
         <div class="col-md-4"> 
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Panel title</h3>
+                    <h3 class="panel-title">Hot Users</h3>
                 </div>
                 <div class="panel-body">
-                    Panel content
+                <?php
+                      echo '<table>';
+                      echo '<tr class="warning"> <td class="column-spacing"> User </td> <td class="column-spacing"> Tickets </td></tr>';                     
+                      foreach($hotusers as $ticket)
+                      {
+                            echo '<tr> <td class="column-spacing">'. $ticket[1] .'</td> <td class="column-spacing">'.$ticket[0].'</td></tr>';
+                      }
+                      echo '</table>'
+                    ?>               
                 </div>
             </div>
         </div>
         <div class="col-md-4"> 
         <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Panel title</h3>
+                    <h3 class="panel-title">PHP Version</h3>
                 </div>
                 <div class="panel-body">
-                    Panel content
+                <?php echo phpversion(); ?>
                 </div>
             </div>
         </div>
         <div class="col-md-4"> 
-        <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Panel title</h3>
-                </div>
-                <div class="panel-body">
-                    Panel content
-                </div>
-            </div>
+   
         </div>
     </div>
     <div class="container">

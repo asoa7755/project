@@ -137,8 +137,21 @@ class TicketService extends Repository implements ITicketService
     {
         $result = $this->getData("SELECT  avg(NOW() - CreationDate), USERNAME FROM TICKETS, USERS WHERE TICKETS.USERID = USERS.Id AND Role=2 GROUP BY (status)");
         
-        return $result;
+        return $result; 
     }
 
+    public function getTicketswithdepartmentservice()
+    {
+        $result = $this->getData("select count(*),services.Name, departments.Name from tickets,services,departments where tickets.ServiceId= services.Id and departments.Id= services.DepartmentId GROUP BY(services.Name)");
+        
+        return $result; 
+    }
+
+    public function getTotalHotTicketUsers()
+    {
+        $result = $this->getData("select Count(*), users.UserName from users,tickets where tickets.UserId=users.Id and Role=1 GROUP BY(users.UserName)");
+        
+        return $result; 
+    }
 }
 ?>

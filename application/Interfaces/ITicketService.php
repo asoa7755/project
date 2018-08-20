@@ -38,6 +38,11 @@ interface ITicketService{
     public function getTotalHotTickets();
 
     public function getAvgTicketsDuration();
+
+    public function getTicketswithdepartmentservice();
+
+    public function getTotalHotTicketUsers();
+    
 }
 
 ?>
