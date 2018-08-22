@@ -1,10 +1,18 @@
 
 <?php include_once('../../../application/classes/DepartmentService.php') ;?>
 <?php include_once('../../../application/classes/TicketService.php') ;?>
-
+<?php include_once('../../../application/classes/FileService.php') ;?>
 <?php
     $departmentservice = new DepartmentService();
-    $ticketservice = new TicketService();    
+    $ticketservice = new TicketService();   
+    $fileservice = new FileService();
+
+    //It gets the default mime types
+    $mime_types = $fileservice->getMimetypes();
+
+    //It gets the default size for files
+    $default_file_size = $fileservice->getDefaultfilesize();
+
     if(!isset($_SESSION)) 
     { 
         session_start(); 
@@ -17,7 +25,7 @@
         $userid = $_SESSION['Id'];       
 
         $newticketid= $ticketservice->addandGetId($userid, $serviceid,1,$comments);
-        
+
         if (!empty($_FILES['filebutton']["tmp_name"]))
         {
             $image=base64_encode(file_get_contents($_FILES['filebutton']["tmp_name"]));
@@ -30,7 +38,7 @@
         }
         if (!empty($_FILES['filebutton2']["tmp_name"]))
         {
-            echo "in two" . $_FILES['filebutton2']["tmp_name"];
+          
             $image=base64_encode(file_get_contents($_FILES['filebutton2']["tmp_name"]));
             $ticketservice->addImage($newticketid, $userid,  $_FILES ["filebutton2"]["name"],pathinfo($_FILES ["filebutton2"]["name"], PATHINFO_EXTENSION),$image);           
         }
@@ -80,12 +88,12 @@
             <div style="text-align: right; padding-left: 120px;" class="form-group row">
                 <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="selectbasic1">Select Service </label>
                 <div class="col-md-8">
-                    <select style="width: 400px;" id="service" name="service" class="form-control" placeholder="Select Service" required="required" autofocus="autofocus">
+                    <select style="width: 400px;" disabled id="service" name="service" class="form-control" placeholder="Select Service" required="required" autofocus="autofocus">
                     <?php
                     echo '<option value="0">Select Service</option>';
                     foreach ($services as $row)
                     {
-                        echo '<option value="'.$row[1].'">'.$row[0].'</option>';
+                        //echo '<option value="'.$row[1].'">'.$row[0].'</option>';
                     }
                     ?>
                     </select>
@@ -104,7 +112,7 @@
             <div style="text-align: right; padding-left: 120px;" class="form-group row">
                 <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="filebutton">Upload File</label>
                 <div class="col-md-8">
-                    <input id="filebutton" name="filebutton" class="input-file" type="file">
+                    <input id="filebutton" name="filebutton" class="input-file" type="file"  accept="image/*, application/pdf">
                 </div>
             </div>
 
@@ -112,7 +120,7 @@
             <div style="text-align: right; padding-left: 120px;" class="form-group row">
                 <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="filebutton1">Upload File</label>
                 <div class="col-md-8">
-                    <input id="filebutton1" name="filebutton1" class="input-file" type="file">
+                    <input id="filebutton1" name="filebutton1" class="input-file" type="file" accept="<?php echo $mime_types ?>">
                 </div>
             </div>
 
@@ -120,7 +128,7 @@
             <div style="text-align: right; padding-left: 120px;" class="form-group row">
                 <label style="padding-right: 120px;" class="col-md-4 col-form-label" for="filebutton2">Upload File</label>
                 <div class="col-md-8">
-                    <input id="filebutton2" name="filebutton2" class="input-file" type="file">
+                    <input id="filebutton2" name="filebutton2" class="input-file" type="file" accept="<?php echo $mime_types ?>">
                 </div>
             </div>
 
@@ -145,9 +153,31 @@
 
 <script>
 $(document).ready(function() {
-    $('#department').change( function() {
+
+    $(".input-file").change(function(){
+        var size =parseInt(<?php echo $default_file_size?>);
+        if(this.files[0].size > size){
+            alert("File is too big!");
+            this.value = "";
+        };
+    });
+
+    $('#department').change( function() {       
         //Load with Ajax
-        
+        $.ajax({
+            type: "POST",
+            url: 'departmentserviceAPI.php',
+            dataType:"json",            
+            data: 'id='+ $("#department option:selected").text(),
+            success: function(data){                     
+                $("#service").empty();
+                $.each(data, function(index, value) {
+                    $('#service').append($('<option>').text(value).attr('value', index));
+                    $('#service').removeAttr("disabled");
+                });                
+            }
+        });
+
     });
 });    
 </script> 

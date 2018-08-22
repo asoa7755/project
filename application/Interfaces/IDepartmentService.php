@@ -14,5 +14,7 @@ interface IDepartmentService{
     function adddepartment($department_name,$department_description);
     // add Service 
     function addservice($department_Id,$service_name,$service_description);
+
+    function getServicesByDepartmentName($departmentname);
 }
 ?>

@@ -41,8 +41,7 @@ interface ITicketService{
 
     public function getTicketswithdepartmentservice();
 
-    public function getTotalHotTicketUsers();
-    
+    public function getTotalHotTicketUsers();        
 }
 
 ?>
