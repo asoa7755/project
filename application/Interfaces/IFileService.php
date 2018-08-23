@@ -8,6 +8,8 @@ interface IFileService{
 
     //It gets the default size for files
     public function getDefaultfilesize();
+
+    public function getFileBlob($id, $staffid);
 }
 
 ?>

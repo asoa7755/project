@@ -1,5 +1,6 @@
 <?php include_once('../shared/_headerview.php') ?>
 <?php include_once('../../../application/classes/TicketService.php') ;?>
+<?php include_once('../../../application/classes/FileService.php') ;?>
 <!-- Page Content -->
 <!-- print User name and Id -->
 <p> Welcome!  <?php echo $_SESSION['UserName']; echo $_SESSION['Id']; ?></p>
@@ -34,6 +35,8 @@
     if (!empty($_SESSION['UserName']))
     {      
         $ticketservice= new TicketService();    
+        $fileservice= new FileService();    
+
         $records ="";
     
         if (!empty($_POST['search']))
@@ -78,12 +81,13 @@
           echo '<table class="table table-bordered ">';
           echo '<thead>';
           echo '<tr>';
-          echo '<th style="width:10%;" scope="col">Save</th>';
-          echo '<th style="width:10%;" scope="col">Ticket No.</th>';
+          echo '<th style="width:8%;" scope="col">Save</th>';
+          echo '<th style="width:3%;" scope="col">Ticket No.</th>';
+          echo '<th style="width:10%;" scope="col">Files</th>';
           echo '<th scope="col">comments</th>';
           echo '<th style="width:15%;" scope="col">status</th>';
           echo '<th style="width:15%;" scope="col">Data / Time</th>';
-          echo '<th style="width:5%;" scope="col">View</th>';
+          echo '<th style="width:4%;" scope="col">View</th>';
           echo '</tr>';
           echo '</thead>';
           echo '<tbody id="myOrder">';
@@ -98,6 +102,7 @@
                 $datetime = $row[5];
                 $statustext ="";
                 $rowcolor="";
+                $list_of_files = $fileservice->getFilesperticketid($ticketnumber);
 
                 if (!empty($status))
                 {
@@ -118,9 +123,34 @@
 
                 echo '<tr><form action="mainstaff.php" method="post">';
                 echo '<td scope="row"><input  type="submit" class="btn btn-success" value="Save"/> </td>';
-                echo '<th class="'.$rowcolor.'" scope="row"><input  name="ticketnumber" id="ticketnumber" type="text" value="'.$ticketnumber.'"readonly  > </th>';
+                echo '<th class="'.$rowcolor.'" scope="row"><input style="width:30px;" name="ticketnumber" id="ticketnumber" type="text" value="'.$ticketnumber.'"readonly  > </th>';
+
+                echo '<th class="'.$rowcolor.'" scope="row">';
+                if (!empty($list_of_files))
+                {
+                    echo '<table class="table table-bordered ">';
+                    echo '<thead>';
+                    echo '<tr>';
+                    echo '<th style="width:20%;" scope="col">Id</th>';
+                    echo '<th style="width:80%;" scope="col">File Name</th>';
+                    echo '</tr>';
+                    echo '</thead>';
+                    echo '<tbody>';
+                      foreach($list_of_files as $row)
+                      {
+                        echo '<tr>';
+                        echo '<td><a href="fileapi.php?id='.$row[0].'">'. $row[0]. '</a></td>';
+                        echo '<td><a href="fileservice.php?id='.$row[1].'">'. $row[1]. '</a></td>';
+                        echo '</tr>';
+                      }   
+                    echo '</tbody>';
+                    echo '</table>';
+                  }
+                echo '</th>';
+            
+              
+
                 echo '<td class="'.$rowcolor.'"><textarea contenteditable="true" id="comments" name="comments">'.$comments.'</textarea></td>';
-                
                 echo '<td class="'.$rowcolor.'">';
                 echo '<select style="width: 150px;" id="status" name="status" class="form-control input-sm" placeholder="Select Department" required="required" autofocus="autofocus">';               
                 echo '<option value="'.$status.'">'.$statustext.'</option>';
