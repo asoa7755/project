@@ -78,7 +78,7 @@ class TicketService extends Repository implements ITicketService
          return $result;
     }
 
-  
+    
     //It will get teh student appying the role
     public function getbyAdmin($username)
     {

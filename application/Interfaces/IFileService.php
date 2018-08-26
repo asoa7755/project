@@ -10,6 +10,9 @@ interface IFileService{
     public function getDefaultfilesize();
 
     public function getFileBlob($id, $staffid);
+
+    //It gets the mime type per file extension
+    public function getMimetypebyextension($extension);
 }
 
 ?>

@@ -139,8 +139,8 @@
                       foreach($list_of_files as $row)
                       {
                         echo '<tr>';
-                        echo '<td><a href="fileapi.php?id='.$row[0].'">'. $row[0]. '</a></td>';
-                        echo '<td><a href="fileservice.php?id='.$row[1].'">'. $row[1]. '</a></td>';
+                        echo '<td><a href="../shared/fileapi.php?id='.$row[0].'">'. $row[0]. '</a></td>';
+                        echo '<td><a href="../shared/fileapi.php?id='.$row[0].'">'. $row[1]. '</a></td>';
                         echo '</tr>';
                       }   
                     echo '</tbody>';

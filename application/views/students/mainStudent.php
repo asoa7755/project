@@ -1,7 +1,11 @@
 <?php include_once('../shared/_headerview.php') ?>
 <?php include_once('../../../application/classes/TicketService.php') ;?>
+<?php include_once('../../../application/classes/FileService.php') ;
+echo $_SESSION['Id'];
+?>
 <!-- Page Content -->
 <!-- print User name and Id -->
+
 <p> Welcome!  <?php echo $_SESSION['UserName']; echo $_SESSION['Id']; ?></p>
 <h3> All Orders / Tickets </h3>
 <p>Search for your order / Ticket</p>
@@ -34,7 +38,9 @@
     if (!empty($_SESSION['UserName']))
     {      
         $ticketservice= new TicketService();    
-
+        $fileservice= new FileService();    
+        
+        //$records = $ticketservice->getbyStudent($_SESSION['UserName']);
         $records = $ticketservice->getbyStudent($_SESSION['UserName']);
 
         if (!empty($records))
@@ -43,6 +49,7 @@
           echo '<thead>';
           echo '<tr>';
           echo '<th style="width:15%;" scope="col">Ticket No.</th>';
+          echo '<th  scope="col">Attachments</th>';
           echo '<th  scope="col">comments</th>';
           echo '<th style="width:15%;" scope="col">status</th>';
           echo '<th style="width:20%;" scope="col">Data / Time</th>';
@@ -60,6 +67,8 @@
                 $statuscolour = "#000000";
                 $datetime = $row[5];
                 $statustext ="";
+                $list_of_files = $fileservice->getFilesperticketid($ticketnumber);
+
 
                 if (!empty($status))
                 {
@@ -79,7 +88,30 @@
                 }
 
                 echo '<tr>';
-                echo '<th scope="row">'.$ticketnumber.'</th>';
+          
+                echo '<td scope="row">'.$ticketnumber.'</td>';
+                echo '<td scope="row">';
+                if (!empty($list_of_files))
+                {
+                    echo '<table class="table table-bordered ">';
+                    echo '<thead>';
+                    echo '<tr>';
+                    echo '<th style="width:20%;" scope="col">Id</th>';
+                    echo '<th style="width:80%;" scope="col">File Name</th>';
+                    echo '</tr>';
+                    echo '</thead>';
+                    echo '<tbody>';
+                      foreach($list_of_files as $row)
+                      {
+                        echo '<tr>';
+                        echo '<td><a href="../shared/fileapi.php?id='.$row[0].'">'. $row[0]. '</a></td>';
+                        echo '<td><a href="../shared/fileapi.php?id='.$row[0].'">'. $row[1]. '</a></td>';
+                        echo '</tr>';
+                      }   
+                    echo '</tbody>';
+                    echo '</table>';
+                  }
+                echo '</td>';
                 echo '<td>'.$comments.'</td>';
                 echo '<td><span class="label '.$statuscolour.'">'.$statustext.'<under studying</span></td>';
                 echo '<td>'.$datetime.'</td>';
