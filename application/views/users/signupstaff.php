@@ -8,6 +8,20 @@
 
 
 <?php
+
+if (isset($_SESSION['token']) && !empty($_POST['token']))
+{
+    if ($_SESSION['token']!=$_POST['token'])
+    { 
+        header('Location: ../users/login.php');
+        die();
+    }
+}
+elseif (!isset($_SESSION['token']))
+{
+    header('Location: ../users/login.php');
+    die();
+}
     $departmentservice = new DepartmentService();
     $ticketservice = new TicketService();
    // Get Services
@@ -43,7 +57,8 @@
 ?>
 
    <form class="well form-horizontal" action="signupstaff.php" method="post"  id="contact_form">
-      <fieldset>
+   <input type="hidden" id="token" name="token" value="<?php echo $_SESSION['token']; ?>"/>
+    <fieldset>
          <!-- Form Name -->
          <legend>
             <center>

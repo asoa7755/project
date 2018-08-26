@@ -31,7 +31,20 @@
           <h7>My Tickets </h7>
       <?php
  
-    
+    if (isset($_SESSION['token']) && !empty($_POST['token']))
+    {
+        if ($_SESSION['token']!=$_POST['token'])
+        { 
+            header('Location: ../users/login.php');
+            die();
+        }
+    }
+    elseif (!isset($_SESSION['token']))
+    {
+        header('Location: ../users/login.php');
+        die();
+    }   
+
     if (!empty($_SESSION['UserName']))
     {      
         $ticketservice= new TicketService();    
@@ -122,6 +135,7 @@
                 }
 
                 echo '<tr><form action="mainstaff.php" method="post">';
+                echo '<input type="hidden" name="token" id="token" value="'. $_SESSION['token'].'"/>';
                 echo '<td scope="row"><input  type="submit" class="btn btn-success" value="Save"/> </td>';
                 echo '<th class="'.$rowcolor.'" scope="row"><input style="width:30px;" name="ticketnumber" id="ticketnumber" type="text" value="'.$ticketnumber.'"readonly  > </th>';
 

@@ -10,9 +10,10 @@ class UserService extends Repository implements IUserService
     {
         parent::__construct();  
     }          
- 
+    
     public function addUser($username, $email, $password, $firstname,$lastname,$role)
     {
+        $password = $sha256hassedpassword= hash('sha256', $password);
         $this->execute("INSERT INTO USERS (UserName,Email,PASSWORD,FirstName,LastName,Role) VALUES ('$username','$email','$password','$firstname','$lastname',$role)");  
     }
 
@@ -23,6 +24,7 @@ class UserService extends Repository implements IUserService
 
     public function login($username,$password)
     {
+        $password = $sha256hassedpassword= hash('sha256', $password);
         $result = $this->getData("SELECT * FROM USERS WHERE UserName='$username' AND Password='$password' ");
         
         if ($result==false )
@@ -33,9 +35,10 @@ class UserService extends Repository implements IUserService
             return true;
         }       
     }
-
+  
     public function loginByRole($username,$password)
     {
+        $password = $sha256hassedpassword= hash('sha256', $password);
         $result = $this->getData("SELECT * FROM USERS WHERE UserName='$username' AND Password='$password'");
        
         return $result;
@@ -69,8 +72,6 @@ class UserService extends Repository implements IUserService
         {
             return $row[0];
         }
-    
-    
     }
   
 }

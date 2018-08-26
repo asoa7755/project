@@ -13,6 +13,21 @@
    //$departmentservices = $departmentservice->getAll();
 
     //if (!empty($_POST['user_name']) && !empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['department'])&& !empty($_POST['service'])&& !empty($_POST['password'])&& !empty($_POST['email']))
+    
+    if (isset($_SESSION['token']) && !empty($_POST['token']))
+    {
+        if ($_SESSION['token']!=$_POST['token'])
+        { 
+            header('Location: ../users/login.php');
+            die();
+        }
+    }
+    elseif (!isset($_SESSION['token']))
+    {
+        header('Location: ../users/login.php');
+        die();
+    }
+    
     if (!empty($_POST['user_name']))
     {
        
@@ -25,7 +40,7 @@
         $service->addUser($username, $email,$password,$firstname,$lastname ,1);
 
           //Success message 
-          
+           
          echo '<div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>';
         
       
@@ -40,7 +55,8 @@
 
 <div class="container">
    <form class="well form-horizontal" action="signup.php" method="post"  id="contact_form">
-      <fieldset>
+    <input type="hidden" id="token" name="token" value="<?php echo $_SESSION['token']; ?>"/>
+   <fieldset>
          <!-- Form Name -->
          <legend>
             <center>

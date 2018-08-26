@@ -9,6 +9,20 @@
         $user="";
         $pwd="";
 
+        if (isset($_SESSION['token']) && !empty($_POST['token']))
+        {
+            if ($_SESSION['token']!=$_POST['token'])
+            { 
+                header('Location: ../users/login.php');
+                die();
+            }
+        }
+        elseif (!isset($_SESSION['token']))
+        {
+            header('Location: ../users/login.php');
+            die();
+        }
+
     if (!empty($_POST['username']) && !empty($_POST['password']))
     {
         echo "<h2> in post username  or password</h2> ";
@@ -32,12 +46,11 @@
                 $_SESSION['Role'] = $row['Role'];        
                 $_SESSION['UserName'] = $row['UserName'];
                 $_SESSION['Id'] = $row['Id'];
-                //echo  $_SESSION['Id'];
             }
 
             if ($_SESSION['Role']==1)
             {                
-               header('Location: ../students/mainstudent.php');
+                header('Location: ../students/mainstudent.php');
             }
             else if ($_SESSION['Role']==2)
             {
@@ -54,7 +67,8 @@
 ?>
 
 <div class="wrapper">
-    <form class="form-signin" action="login.php" method="post">       
+    <form class="form-signin" action="login.php" method="post">     
+      <input type="hidden" id="token" name="token" value="<?php echo $_SESSION['token']; ?>"/>
       <h2 class="form-signin-heading">Please login</h2>
       <input type="text" class="form-control" name="username" placeholder="User Name" required="" autofocus="" />
       <input type="password" class="form-control" name="password" placeholder="Password" required=""/>      

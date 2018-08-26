@@ -1,7 +1,27 @@
 <?php if(!isset($_SESSION)) 
     { 
         session_start(); 
+    }
+
+    //SECURITY: We hash the session
+    if (!isset($_SESSION['token']))
+    {
+        $_SESSION['token']=md5(uniqid(rand(),TRUE));
+        $_SESSION['tokentime'] = time();
     } 
+
+    //SECURITY: We check if it is more than 30 mins since we started
+    if (strtotime('+30 minutes', time()) > $_SESSION['tokentime'])
+    {
+        //##SECURE CONNECTION
+        //echo 'secure';
+    }
+    else
+    {
+        //##USECURE CONNECTION
+        header('Location: ../_sessionexpire.php');
+        die();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
