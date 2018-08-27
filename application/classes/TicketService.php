@@ -53,6 +53,7 @@ class TicketService extends Repository implements ITicketService
 
     public function addImage($ticketid, $userid, $filename,$extension,$file)
     {
+        $filename= utf8_encode($filename);
        $this->execute("INSERT INTO FILES (TicketId,File,Name, Extension,CreationDate) VALUES (".$ticketid.",'".$file."','".$filename."','".$extension."',NOW() )") ; 
     }
     //reply ticket

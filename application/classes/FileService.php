@@ -6,7 +6,7 @@ class FileService extends Repository implements IFileService
 {
     public function getFilesperticketid($ticketid)
     {
-        $result = $this->getData("SELECT ID,Name FROM FILES WHERE TICKETID=".$ticketid);
+        $result = $this->getData("SELECT ID, CAST(BINARY(Name) AS CHAR CHARACTER SET utf8)  FROM FILES WHERE TICKETID=".$ticketid);
 
         return $result;
     }
@@ -43,7 +43,7 @@ class FileService extends Repository implements IFileService
     public function getFileBlob($id, $staffid)
     {
         //echo 'SELECT FILES.FILE,FILES.NAME, FILES.EXTENSION FROM FILES,TICKETS WHERE FILES.ID='.$id. ' AND TICKETS.ID= FILES.TICKETID AND (TICKETS.SourceTicketId=0 OR TICKETS.SourceTicketId='. $staffid .')';
-        $result = $this->getData('SELECT FILES.FILE,FILES.NAME, FILES.EXTENSION FROM FILES,TICKETS WHERE FILES.ID='.$id. ' AND TICKETS.ID= FILES.TICKETID AND (TICKETS.SourceTicketId=0 OR TICKETS.SourceTicketId='. $staffid .')');
+        $result = $this->getData('SELECT FILES.FILE,FROM_BASE64(FILES.NAME), FILES.EXTENSION FROM FILES,TICKETS WHERE FILES.ID='.$id. ' AND TICKETS.ID= FILES.TICKETID AND (TICKETS.SourceTicketId=0 OR TICKETS.SourceTicketId='. $staffid .')');
 
         //$result = $this->getData('SELECT FILES.FILE,FILES.NAME, FILES.EXTENSION FROM FILES, USERS,TICKETS WHERE FILES.ID='.$id. ' AND USERS.ROLE=2 AND (TICKETS.SourceTicketId=0 OR TICKETS.SourceTicketId='. $staffid . ') AND USERS.ID= TICKETS.USERID AND TICKETS.ID= FILES.TICKETID');
 

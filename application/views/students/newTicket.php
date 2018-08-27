@@ -7,8 +7,6 @@
     $ticketservice = new TicketService();   
     $fileservice = new FileService();
 
-    echo $_POST['service'];   
-
     //It gets the default mime types
     $mime_types = $fileservice->getMimetypes();
 
@@ -120,11 +118,11 @@
                         <div class="col-md-8"> 
                             <select style="width: 400px;" disabled id="service" name="service" class="form-control" placeholder="Select Service" required="required" autofocus="autofocus">
                                 <?php
-                                echo '<option value="0">Select Service</option>';
-                                foreach ($services as $row)
-                                {
+                                //echo '<option value="0">Select Service</option>';
+                                //foreach ($services as $row)
+                                //{
                                     //echo '<option value="'.$row[1].'">'.$row[0].'</option>';
-                                }
+                                //}
                                 ?>
                             </select>
                         </div>
@@ -204,6 +202,7 @@ $(document).ready(function() {
 
     hideValidation();
 
+
     //SECURITY:
     //Validates and Verify size o file and type
     $(".input-file").change(function(){
@@ -236,6 +235,16 @@ $(document).ready(function() {
             }
         }
         
+        //Detect if latin characters
+        const filename= this.files[0].name;
+        for(i=0;filename.length;i++)
+        {
+            if (filename[i].charCodeAt()<48 || filename[i].charCodeAt()>122)
+            {
+                this.files[0].name=b64EncodeUnicode(this.files[0].name)+"."+ext;
+                break;
+            }
+        }
     });
 
     //SECURITY:
@@ -282,9 +291,11 @@ $(document).ready(function() {
             success: function(data){                     
                 $("#service").empty();
                 $.each(data, function(index, value) {
-                    $('#service').append($('<option>').text(value).attr('value', index));
+                    var serviceid = value.id;
+                    var servicename = value.servicename;
+                    $('#service').append($('<option>').text(servicename).attr('value', serviceid));
                     $('#service').removeAttr("disabled");
-                });                
+                });      
             }
         });
 
@@ -293,4 +304,15 @@ $(document).ready(function() {
 function getFileExtension(filename) {
   return (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename)[0] : undefined;
 }    
+
+function b64EncodeUnicode(str) {
+    // first we use encodeURIComponent to get percent-encoded UTF-8,
+    // then we convert the percent encodings into raw bytes which
+    // can be fed into btoa.
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+    }));
+}
+
 </script> 

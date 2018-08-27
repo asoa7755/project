@@ -45,7 +45,7 @@ class DepartmentService extends Repository implements IDepartmentService
      }
 
      function getServicesByDepartmentName($departmentname){
-        return $this->getData("SELECT SERVICES.NAME FROM SERVICES,DEPARTMENTS WHERE SERVICES.DEPARTMENTID=DEPARTMENTS.ID AND DEPARTMENTS.NAME='".$departmentname."'");
+        return $this->getData("SELECT SERVICES.ID, SERVICES.NAME FROM SERVICES,DEPARTMENTS WHERE SERVICES.DEPARTMENTID=DEPARTMENTS.ID AND DEPARTMENTS.NAME='".$departmentname."'");
      }
 }
 
